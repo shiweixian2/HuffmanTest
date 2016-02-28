@@ -187,4 +187,32 @@ void Huffman<T>::destory() {
     destory(mRoot);
 }
 
+/**
+ * 打印"Huffman"树
+ *
+ * key -- 节点的键值
+ * direction -- 0:该节点为根节点
+ *              -1:该节点为左孩子
+ *              1:该节点为右孩子
+ */
+template<class T>
+void Huffman<T>::print(HuffmanNode<T> *tree, T key, int direction) {
+    if (tree != nullptr) {
+        if (direction == 0) //tree是根节点
+            cout << setw(2) << tree->key << "is root" << endl;
+        else  //tree是分支点
+            cout << setw(2) << tree->key << " is " << setw(2) << key << "'s " << setw(2) <<
+            (direction == 1 ? "right child" : "left child") << endl;
+        print(tree->left, tree->key, -1);
+        print(tree->right, tree->key, 1);
+
+    }
+}
+
+template<class T>
+void Huffman<T>::print() {
+    if (mRoot != nullptr)
+        print(mRoot, mRoot->key, 0);
+}
+
 #endif //HUFFMANTEST_HUFFMAN_H
